@@ -4,13 +4,12 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.IO;
 
-public class UIObjectTemplateEditor : EditorWindow
+public class UIObjectTemplateEditor : EditorWindow  // for now only predefined templates only working
 {
     //for single templpate creation
     private string templateName;
     private Vector3 templatePos;
     private Vector2 size;
-    //private string templateType;
     private string parentName;
     private enum TemplateType
     {
@@ -89,7 +88,7 @@ public class UIObjectTemplateEditor : EditorWindow
             if (parentObject != null)
                 newTemplate.transform.SetParent(parentObject.transform);
 
-            UITemplate uiTemplate= JsonUtility.FromJson<UITemplate>(templateJSON.text);
+            UITemplate uiTemplate = JsonUtility.FromJson<UITemplate>(templateJSON.text);
 
             RecursionToFindParent(parentObject.name, uiTemplate.objects);
 
@@ -214,64 +213,68 @@ public class UIObjectTemplateEditor : EditorWindow
     //Find the parent UIObject in the template
     private void RecursionToFindParent(string parentName, List<UIObject> uiObjects)
     {
-        string jsonPath = @"D:\unity projects\GreedyGames\Assets\Data\data.txt"; // jason path
-
-        string jsonString = File.ReadAllText(jsonPath);
-
-        UITemplate template = JsonUtility.FromJson<UITemplate>(jsonString);
-
         foreach (UIObject uiObject in uiObjects)
         {
             if (uiObject.properties.name == (parentName))
             {
                 //data
-
-                // Create new template data
-                UIProperties newProperties = new UIProperties
-                {
-                    text = "New Text",
-                    value = 42,
-                    name = "NewTemplate"
-                };
-
-                UIPosition newPosition = new UIPosition
-                {
-                    x = 100,
-                    y = 200
-                };
-
-                UISize newUiSize = new UISize
-                {
-                    width = 150,
-                    height = 75
-                };
-
-                UIObject newUIObject = new UIObject
-                {
-                    type = "Text",
-                    properties = newProperties,
-                    position = newPosition,
-                    size = newUiSize,
-                    children = new List<UIObject>()
-                };
-
-                //uiObject.children.Add(newUIObject);
-
-                template.objects.Add(newUIObject);
-
-                // Serialize the modified template back to JSON
-                string modifiedJson = JsonUtility.ToJson(template, true);
-                File.WriteAllText(jsonPath, modifiedJson);
-
+                AddTheNewTemplate(uiObject);
                 Debug.Log("<color=orange>DataEntered: </color>New template data added to JSON file.");
 
                 break;//break out of loop
             }
 
-            else if (uiObject.children != null && uiObject.children.Count > 0)
+            if (uiObject.children != null && uiObject.children.Count > 0)
             {
                 RecursionToFindParent(parentName, uiObject.children);
             }
         }
+    }
+
+
+    void AddTheNewTemplate(UIObject uiObject)
+    {
+        string jsonPath = @"D:\Git_Repo\GreedyGames\Assets\Data\data.txt"; // jason path
+
+        string jsonString = File.ReadAllText(jsonPath);
+
+        UITemplate template = JsonUtility.FromJson<UITemplate>(jsonString);
+
+        // Create new template data
+        UIProperties newProperties = new UIProperties
+        {
+            text = "New Text",
+            value = 42,
+            name = "NewTemplate"
+        };
+
+        UIPosition newPosition = new UIPosition
+        {
+            x = 100,
+            y = 200
+        };
+
+        UISize newUiSize = new UISize
+        {
+            width = 150,
+            height = 75
+        };
+
+        UIObject newUIObject = new UIObject
+        {
+            type = "Text",
+            properties = newProperties,
+            position = newPosition,
+            size = newUiSize,
+            children = new List<UIObject>()
+        };
+
+        uiObject.children.Add(newUIObject);
+
+        //template.objects.Add(newUIObject);
+
+        // Serialize the modified template back to JSON
+        string modifiedJson = JsonUtility.ToJson(template, true);
+        File.WriteAllText(jsonPath, modifiedJson);
     }
 }
