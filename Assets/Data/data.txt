@@ -1,0 +1,133 @@
+{
+  "templateName": "MainTemplate",
+  "objects": [
+    {
+      "type": "Canvas",
+      "properties": {
+        "renderMode": "ScreenSpaceOverlay"
+      },
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "size": {
+        "width": 800,
+        "height": 600
+      },
+      "children": [
+        {
+          "type": "Text",
+          "properties": {
+            "text": "Hello, World!",
+            "value": 20,
+            "name": "Name"
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 200,
+            "height": 50
+          }
+        },
+        {
+          "type": "Button",
+          "properties": {
+            "text": "Click Me",
+            "name": "Button"
+          },
+          "position": {
+            "x": 300,
+            "y": 200
+          },
+          "size": {
+            "width": 100,
+            "height": 50
+          }
+        },
+        {
+          "type": "Image",
+          "properties": {
+            "text": "BG",
+            "name": "BG"
+          },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 400,
+            "height": 400
+          }
+        },
+        {
+          "type": "EmptyObject",
+          "properties": {
+            "text": "Click Me",
+            "name": "holder"
+          },
+          "position": {
+            "x": 300,
+            "y": 200
+          },
+          "size": {
+            "width": 100,
+            "height": 50
+          },
+          "children": [
+            {
+              "type": "EmptyObject",
+              "properties": {
+                "text": "App Details",
+                "value": 20,
+                "name": "App Details"
+              },
+              "position": {
+                "x": 0,
+                "y": 0
+              },
+              "size": {
+                "width": 200,
+                "height": 50
+              }
+            },
+            {
+              "type": "Button",
+              "properties": {
+                "text": "Click Me",
+                "name": "Install Button"
+              },
+              "position": {
+                "x": 300,
+                "y": 200
+              },
+              "size": {
+                "width": 100,
+                "height": 50
+              },
+              "children": [
+                {
+                  "type": "Text",
+                  "properties": {
+                    "text": "Install",
+                    "value": 20,
+                    "name": "Install Text"
+                  },
+                  "position": {
+                    "x": 0,
+                    "y": 0
+                  },
+                  "size": {
+                    "width": 200,
+                    "height": 50
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
